@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API App</title>
+    <title>Sentimientos IA</title>
     <style>
         body {
             font-family: sans-serif;
             margin: 20px;
-            background-color: #323232;
+            background-color: #3498db;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .container {
             background-color: #fff;
             padding: 20px;
@@ -21,10 +23,12 @@
             width: 90%;
             max-width: 600px;
         }
+
         h1 {
             text-align: center;
             color: #333;
         }
+
         textarea {
             resize: none;
             width: calc(100% - 22px);
@@ -35,20 +39,24 @@
             font-size: 16px;
             min-height: 10vh;
         }
+
         button {
-            background-color: #007bff;
-            color: white;
+            background-color: transparent;
+            color: #0056b3;
+            border: solid 1px #0056b3;
             padding: 10px 15px;
-            border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
             display: block;
             width: 100%;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #3498db;
+            color: white;
         }
+
         #responseContainer {
             margin-top: 20px;
             padding: 15px;
@@ -56,17 +64,10 @@
             border-radius: 4px;
             background-color: #e9ecef;
             min-height: 50px;
-            white-space: pre-wrap; /* Para conservar saltos de línea y espacios */
+            white-space: pre-wrap;
+            /* Para conservar saltos de línea y espacios */
         }
-        #responseContainer2 {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            background-color: #e9ecef;
-            min-height: 50px;
-            white-space: pre-wrap; /* Para conservar saltos de línea y espacios */
-        }
+
         .loader {
             border: 4px solid #f3f3f3;
             border-radius: 50%;
@@ -75,27 +76,76 @@
             height: 20px;
             animation: spin 1s linear infinite;
             margin: 10px auto;
-            display: none; /* Oculto por defecto */
+            display: none;
+            /* Oculto por defecto */
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #modalMessage {
+            font-size: 18px;
+            font-weight: bold;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Interactuar con Gemini y Mistral API 🚀</h1>
-        <textarea id="inputText" placeholder="Escribe tu pregunta o texto aquí... Por ejemplo: Explica cómo funciona la IA en pocas palabras"></textarea>
+        <h1>IA Sentimental ❤️</h1>
+        <textarea id="inputText"
+            placeholder="Escribe tu pregunta o texto aquí..."></textarea>
         <button onclick="sendToGemini()">Enviar a Gemini</button>
         <div class="loader" id="loader"></div>
         <h2>Respuesta de Gemini:</h2>
         <div id="responseContainer">
+        </div>
+        <!-- Modal personalizado -->
+        <div id="customModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="closeModalBtn">&times;</span>
+                <p id="modalMessage"></p>
             </div>
-        <h2>Respuesta de Mistral:</h2>
-        <div id="responseContainer2">
-            </div>
+        </div>
+
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
